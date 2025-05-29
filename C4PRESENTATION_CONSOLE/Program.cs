@@ -97,7 +97,7 @@ Console.WriteLine("Pressione qualquer tecla para sair...");
 
 #endregion
 
-#region Factory
+#region Application
 
 public class Comandos {
 
