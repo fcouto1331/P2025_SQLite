@@ -97,6 +97,8 @@ Console.WriteLine("Pressione qualquer tecla para sair...");
 
 #endregion
 
+#region Factory
+
 public class Comandos {
 
     public static void Listar(IClienteService _service) 
@@ -149,3 +151,5 @@ public class Comandos {
     }
 
 }
+
+#endregion
