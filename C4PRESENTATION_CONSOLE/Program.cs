@@ -72,7 +72,7 @@ if (_service != null)
                     Comandos.Excluir(_service);
                     break;
                 case "0":
-                    menu = false;
+                    Environment.Exit(0);
                     break;
                 default:
                     Console.WriteLine("Opção inválida. Tente novamente.");
@@ -93,7 +93,7 @@ if (_service != null)
     }
 }
 
-Console.WriteLine("Pressione qualquer tecla para sair...");
+Environment.Exit(0);
 
 #endregion
 
