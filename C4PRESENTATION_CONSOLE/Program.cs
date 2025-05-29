@@ -54,7 +54,7 @@ if (_service != null)
             Console.WriteLine("3 - Alterar");
             Console.WriteLine("4 - Excluir");
             Console.WriteLine("0 - Sair");
-            Console.Write("Escolha uma opção: ");
+            Console.Write("Opção: ");
 
             var opcao = Console.ReadLine();
             switch (opcao)
@@ -75,14 +75,14 @@ if (_service != null)
                     Environment.Exit(0);
                     break;
                 default:
-                    Console.WriteLine("Opção inválida. Tente novamente.");
+                    Console.WriteLine("Opção inválida.");
                     break;
             }
 
             Console.WriteLine("\n");
             Console.WriteLine("1 - Menu");
             Console.WriteLine("0 - Sair");
-            Console.Write("Escolha uma opção: ");
+            Console.Write("Opção: ");
             menu = Console.ReadLine() == "1" ? true : false;
         }
     }
@@ -127,7 +127,7 @@ public class Comandos {
     public static void Alterar(IClienteService _service)
     {
         Console.WriteLine("\nAlterar");
-        Console.WriteLine("Buscar por Id:");
+        Console.WriteLine("Id:");
         int id = Convert.ToInt32(Console.ReadLine());
         ClienteDTO cliente = Mapping.ToClienteDTO(_service.PegarPorId(id));
         Console.WriteLine($"Id: {cliente.Id}, Nome: {cliente.Nome}");
@@ -144,7 +144,7 @@ public class Comandos {
     public static void Excluir(IClienteService _service) 
     {
         Console.WriteLine("\nExcluir");
-        Console.WriteLine("Buscar por Id:");
+        Console.WriteLine("Id:");
         int id = Convert.ToInt32(Console.ReadLine());
         _service.Excluir(id);
         Listar(_service);
