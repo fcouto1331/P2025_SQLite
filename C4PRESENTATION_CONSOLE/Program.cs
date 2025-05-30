@@ -60,16 +60,16 @@ if (_service != null)
             switch (opcao)
             {
                 case "1":
-                    Comandos.Listar(_service);
+                    ClienteApp.Listar(_service);
                     break;
                 case "2":
-                    Comandos.Criar(_service);
+                    ClienteApp.Criar(_service);
                     break;
                 case "3":
-                    Comandos.Alterar(_service);
+                    ClienteApp.Alterar(_service);
                     break;
                 case "4":
-                    Comandos.Excluir(_service);
+                    ClienteApp.Excluir(_service);
                     break;
                 case "0":
                     Environment.Exit(0);
@@ -99,7 +99,7 @@ Environment.Exit(0);
 
 #region Application
 
-public class Comandos {
+public class ClienteApp {
 
     public static void Listar(IClienteService _service) 
     {
@@ -107,7 +107,7 @@ public class Comandos {
         List<ClienteDTO> cliente = Mapping.ToListClienteDTO(_service.Listar());
         foreach (var item in cliente)
         {
-            Console.WriteLine($"Id: {item.Id}, Nome: {item.Nome}");
+            Console.WriteLine($"Id: {item.Id}, Nome: {item.Nome}, IdGuid: {item.IdGuid}");
         }
     }
 
@@ -118,7 +118,7 @@ public class Comandos {
         string? nome = Console.ReadLine();
         if (!String.IsNullOrEmpty(nome))
         {
-            ClienteDTO cliente = new ClienteDTO { Id = 0, Nome = nome };
+            ClienteDTO cliente = new ClienteDTO { Id = 0, Nome = nome, IdGuid = Guid.NewGuid() };
             _service.Criar(Mapping.ToCliente(cliente));
         }
         Listar(_service);
@@ -127,15 +127,15 @@ public class Comandos {
     public static void Alterar(IClienteService _service)
     {
         Console.WriteLine("\nAlterar");
-        Console.WriteLine("Id:");
+        Console.Write("Id:");
         int id = Convert.ToInt32(Console.ReadLine());
         ClienteDTO cliente = Mapping.ToClienteDTO(_service.PegarPorId(id));
-        Console.WriteLine($"Id: {cliente.Id}, Nome: {cliente.Nome}");
+        Console.WriteLine($"Id: {cliente.Id}, Nome: {cliente.Nome}, IdGuid: {cliente.IdGuid}");
         Console.Write("Nome: ");
-        string? nome = Console.ReadLine();
+        string nome = Console.ReadLine() ?? String.Empty;
         if (!String.IsNullOrEmpty(nome))
         {
-            ClienteDTO cliente2 = new ClienteDTO { Id = cliente.Id, Nome = nome };
+            ClienteDTO cliente2 = new ClienteDTO { Id = cliente.Id, Nome = nome, IdGuid = cliente.IdGuid };
             _service.Alterar(Mapping.ToCliente(cliente2), cliente.Id);
         }
         Listar(_service);
@@ -144,7 +144,7 @@ public class Comandos {
     public static void Excluir(IClienteService _service) 
     {
         Console.WriteLine("\nExcluir");
-        Console.WriteLine("Id:");
+        Console.Write("Id:");
         int id = Convert.ToInt32(Console.ReadLine());
         _service.Excluir(id);
         Listar(_service);

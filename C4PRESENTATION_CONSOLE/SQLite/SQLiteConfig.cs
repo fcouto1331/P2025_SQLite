@@ -42,7 +42,8 @@ namespace C4PRESENTATION_CONSOLE.SQLite
                         StringBuilder query = new StringBuilder();
                         query.AppendLine("CREATE TABLE IF NOT EXISTS Cliente ( ");
                         query.AppendLine("Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
-                        query.AppendLine("Nome TEXT NOT NULL ");
+                        query.AppendLine("Nome TEXT NOT NULL, ");
+                        query.AppendLine("IdGuid TEXT NOT NULL UNIQUE ");
                         query.AppendLine("); ");
                         cmd.CommandText = query.ToString();
                         cmd.ExecuteNonQuery();

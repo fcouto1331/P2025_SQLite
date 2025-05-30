@@ -7,7 +7,7 @@ namespace C4PRESENTATION_CONSOLE.Mappings
     {
         public static Cliente ToCliente(ClienteDTO clienteDTO)
         {
-            var cliente = new Cliente(clienteDTO.Id, String.IsNullOrEmpty(clienteDTO.Nome) ? "" : clienteDTO.Nome);
+            var cliente = new Cliente(clienteDTO.Id, String.IsNullOrEmpty(clienteDTO.Nome) ? "" : clienteDTO.Nome, clienteDTO.IdGuid);
             return cliente;
         }
 

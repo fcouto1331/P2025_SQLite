@@ -23,7 +23,7 @@ namespace C4PRESENTATION_CONSOLE.Repositories
                 {
                     cmd.CommandText = "UPDATE Cliente SET Nome = @Nome WHERE Id = @Id";
                     var nome = new SqliteParameter("@Nome", DbType.String) { Value = cliente.Nome };
-                    var _id = new SqliteParameter("@Id", DbType.Int32) { Value = cliente.Id };
+                    var _id = new SqliteParameter("@Id", DbType.Int32) { Value = id };
                     cmd.Parameters.Add(nome);
                     cmd.Parameters.Add(_id);
                     cmd.ExecuteNonQuery();
@@ -38,9 +38,11 @@ namespace C4PRESENTATION_CONSOLE.Repositories
                 db.Open();
                 using (var cmd = db.CreateCommand())
                 {
-                    cmd.CommandText = "INSERT INTO Cliente (Nome) VALUES (@Nome)";
+                    cmd.CommandText = "INSERT INTO Cliente (Nome, IdGuid) VALUES (@Nome, @IdGuid)";
                     var nome = new SqliteParameter("@Nome", DbType.String) { Value = cliente.Nome };
                     cmd.Parameters.Add(nome);
+                    var idGuid = new SqliteParameter("@IdGuid", DbType.Guid) { Value = cliente.IdGuid };
+                    cmd.Parameters.Add(idGuid);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -68,13 +70,13 @@ namespace C4PRESENTATION_CONSOLE.Repositories
                 db.Open();
                 using (var cmd = db.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Id, Nome FROM Cliente";
+                    cmd.CommandText = "SELECT Id, Nome, IdGuid FROM Cliente";
                     using (var reader = cmd.ExecuteReader())
                     {
                         List<Cliente> lstCliente = new List<Cliente>();
                         while (reader.Read())
                         {
-                            var cliente = new Cliente(reader.GetInt32(0), reader.GetString(1)) { };
+                            var cliente = new Cliente(reader.GetInt32(0), reader.GetString(1), reader.GetGuid(2)) { };
                             lstCliente.Add(cliente);
                         }
                         return lstCliente;
@@ -90,7 +92,7 @@ namespace C4PRESENTATION_CONSOLE.Repositories
                 db.Open();
                 using (var cmd = db.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Id, Nome FROM Cliente WHERE Id = @Id";
+                    cmd.CommandText = "SELECT Id, Nome, IdGuid FROM Cliente WHERE Id = @Id";
                     var _id = new SqliteParameter("@Id", DbType.Int32) { Value = id };
                     cmd.Parameters.Add(_id);
                     using (var reader = cmd.ExecuteReader())
@@ -98,7 +100,7 @@ namespace C4PRESENTATION_CONSOLE.Repositories
                         Cliente cliente = new Cliente();
                         if (reader.Read())
                         {
-                            cliente = new Cliente(reader.GetInt32(0), reader.GetString(1));
+                            cliente = new Cliente(reader.GetInt32(0), reader.GetString(1), reader.GetGuid(2));
                         }
                         return cliente;
                     }

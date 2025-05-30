@@ -10,7 +10,8 @@ namespace C4PRESENTATION_CONSOLE.Mappings
             var clienteDTO = new ClienteDTO
             {
                 Id = cliente.Id,
-                Nome = cliente.Nome
+                Nome = cliente.Nome,
+                IdGuid = cliente.IdGuid
             };
             return clienteDTO;
         }
