@@ -7,8 +7,6 @@ using C4PRESENTATION_CONSOLE.Services;
 using C4PRESENTATION_CONSOLE.SQLite;
 using Microsoft.Extensions.DependencyInjection;
 
-Console.WriteLine("fcouto1331 - P2025_SQLite\n");
-
 #region IoC
 
 // Configurar o contêiner de serviços
@@ -35,29 +33,29 @@ if (_serviceSQLite != null)
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"Erro SQLite: {ex.Message}");
-        return;
+        throw new Exception($"Erro SQLite: {ex.Message}");
     }
 }
 
+Console.WriteLine("fcouto1331 - P2025_SQLite");
 if (_service != null)
 {
     try
     {
-        bool menu = true;
-        while (menu)
+        bool cond = true;
+        while (cond)
         {
             Console.Clear();
 
-            Console.WriteLine("1 - Listar");
+            Console.WriteLine("\n1 - Listar");
             Console.WriteLine("2 - Criar");
             Console.WriteLine("3 - Alterar");
             Console.WriteLine("4 - Excluir");
             Console.WriteLine("0 - Sair");
-            Console.Write("Opção: ");
+            Console.Write("Menu: ");
 
-            var opcao = Console.ReadLine();
-            switch (opcao)
+            var menu = Console.ReadLine();
+            switch (menu)
             {
                 case "1":
                     ClienteApp.Listar(_service);
@@ -75,21 +73,18 @@ if (_service != null)
                     Environment.Exit(0);
                     break;
                 default:
-                    Console.WriteLine("Opção inválida.");
-                    break;
+                    throw new Exception("Opção inválida");
             }
 
-            Console.WriteLine("\n");
-            Console.WriteLine("1 - Menu");
+            Console.WriteLine("\n1 - Menu");
             Console.WriteLine("0 - Sair");
-            Console.Write("Opção: ");
-            menu = Console.ReadLine() == "1" ? true : false;
+            Console.Write("SubMenu: ");
+            cond = Console.ReadLine() == "1" ? true : false;
         }
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"Erro: {ex.Message}");
-        return;
+        throw new Exception($"Erro: {ex.Message}");
     }
 }
 
