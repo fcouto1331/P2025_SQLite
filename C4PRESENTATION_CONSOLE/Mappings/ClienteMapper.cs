@@ -3,7 +3,7 @@ using C4PRESENTATION_CONSOLE.Entities;
 
 namespace C4PRESENTATION_CONSOLE.Mappings
 {
-    public partial class Mapping
+    public partial class Mapper
     {
         public static Cliente ToCliente(ClienteDTO clienteDTO)
         {
